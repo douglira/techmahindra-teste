@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  api:
+    image: douglira/techmahindra:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "80:8080"
+    networks:
+      - tmnet
+    depends_on:
+      - db_mongo
+
+  db_mongo:
+    image: mongo:latest
+    networks:
+      - tmnet
+
+networks:
+  tmnet:
+    driver: overlay
+    attachable: true
